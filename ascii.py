@@ -22,9 +22,9 @@ im = Image.open(filename)
 width, height = im.size
 print(width, height)
 
-# print(f"Opened file {filename.name} with width {width} and height {height}")
+print(f"Opened file {filename.name} with width {width} and height {height}")
 
-grad = "$@B%8WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~i!lI;:,^`'."
+grad = "$@B%8WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~i!lI;:,^`'."
 grad_len = len(grad)
 
 im = im.convert('RGBA')
@@ -39,7 +39,8 @@ f.write("<rect width=\"100%\" height=\"100%\" fill=\"#1e295b\"/>")
 for y in range(height):
     for x in range(width):
         r, g, b, _ = im.getpixel((x, y));
-        lindex = int(grad_len *(luminosity(r, g, b)/255))
+        lindex = int(grad_len *((254-luminosity(r, g, b))/255))
+        print(lindex, grad_len)
         f.write(f"<text x=\"{x*3}\" y=\"{y*3}\" fill=\"rgb({r}, {g}, {b})\" class=\"small\">{grad[lindex]}</text>\n")
 
 f.write("</svg>")
